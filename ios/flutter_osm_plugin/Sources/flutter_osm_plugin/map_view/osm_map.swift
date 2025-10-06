@@ -184,13 +184,19 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
                 break;
             case "get#Zoom":
 <<<<<<< HEAD
+<<<<<<< HEAD
                 result(self.mapOSM.zoom())
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
                 DispatchQueue.main.async {
                     let zoomLevel = Double(self.mapOSM.zoom())
                     result(zoomLevel)
                 }
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
                 break;
             case "change#stepZoom":
                 
@@ -365,6 +371,7 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
     func initPosition(args: Any?, result: @escaping FlutterResult){
         let pointInit = args as! Dictionary<String, Double>
 <<<<<<< HEAD
+<<<<<<< HEAD
         //print(pointInit)
         //let initZoom =
         let location = CLLocationCoordinate2D(latitude: pointInit["lat"]!, longitude: pointInit["lon"]!)
@@ -373,6 +380,8 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
         result(200)
         
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
         let location = CLLocationCoordinate2D(latitude: pointInit["lat"]!, longitude: pointInit["lon"]!)
         self.mapOSM.moveTo(location: location, zoom: zoomConfig.initZoom, animated: false)
         
@@ -382,7 +391,10 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
         }
         
         result(200)
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
     }
      func moveToSpecificLocation(call: FlutterMethodCall, result: FlutterResult) {
          let args = call.arguments as! [String:Any]
@@ -478,9 +490,12 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
     }
     func deleteMarker(call:FlutterMethodCall){
 <<<<<<< HEAD
+<<<<<<< HEAD
         let location = (call.arguments as! GeoPoint).toLocationCoordinate()
         self.mapOSM.markerManager.removeMarker(location: location)
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
         guard let geoPointDict = call.arguments as? GeoPoint else {
             print("Invalid arguments for deleteMarker")
             return
@@ -503,7 +518,10 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
             
             self.mapOSM.markerManager?.removeMarker(location: location)
         }
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
     }
     func changePosition(args: Any?, result: @escaping FlutterResult){
         result(200)
@@ -897,7 +915,10 @@ extension MapCoreOSMView {
 
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
 
 // MARK: - Protocol Implementations
 extension MapCoreOSMView {
@@ -954,7 +975,10 @@ extension MapCoreOSMView {
     }
 }
 
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
 class MapViewUIView:UIView{
     public override init(frame:CGRect){
         super.init(frame: frame)

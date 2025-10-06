@@ -9,10 +9,14 @@ abstract class OSMPlatform extends PlatformInterface {
   OSMPlatform() : super(token: token);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   static late OSMPlatform _instance = MethodChannelOSM();
 =======
   static OSMPlatform _instance = MethodChannelOSM();
 >>>>>>> 765bc1a (Initial commit)
+=======
+  static OSMPlatform _instance = MethodChannelOSM();
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
 
   static OSMPlatform get instance => _instance;
 

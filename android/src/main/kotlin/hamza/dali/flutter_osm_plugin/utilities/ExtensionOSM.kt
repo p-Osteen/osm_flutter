@@ -181,10 +181,14 @@ fun Polyline.setStyle(
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 fun List<Int>.toRGB(): Int = Color.rgb(first(), last(), this[1])
 =======
 fun List<Int>.toRGB(): Int = Color.rgb(first(), this[1], last())
 >>>>>>> 765bc1a (Initial commit)
+=======
+fun List<Int>.toRGB(): Int = Color.rgb(first(), this[1], last())
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
 
 fun Road.toMap(
     key: String,

@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import 'package:flutter/foundation.dart';
 >>>>>>> 765bc1a (Initial commit)
+=======
+import 'package:flutter/foundation.dart';
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
 import 'package:flutter_osm_interface/flutter_osm_interface.dart';
 
 import 'package:flutter_osm_plugin/src/widgets/mobile_osm_flutter.dart';
@@ -441,6 +445,7 @@ final class MobileOSMController extends IBaseOSMController {
   }) async {
     if (markerIcon != null) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       _osmFlutterState.widget.dynamicMarkerWidgetNotifier.value = markerIcon;
       //int durationSecond = 500;
       await Future.delayed(duration, () async {
@@ -457,6 +462,8 @@ final class MobileOSMController extends IBaseOSMController {
           iconAnchor: iconAnchor,
         );
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
       // Check if widget is still mounted before proceeding
       if (!_osmFlutterState.mounted) {
         debugPrint("Warning: OSM widget is disposed, cannot add marker");
@@ -496,7 +503,10 @@ final class MobileOSMController extends IBaseOSMController {
             );
           }
         }
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
       });
     } else {
       await osmPlatform.addMarker(

@@ -51,10 +51,13 @@ extension GeoPoint {
 extension RoadData {
     func toRoadConfiguration() -> RoadConfiguration {
 <<<<<<< HEAD
+<<<<<<< HEAD
         RoadConfiguration(width: Float(roadWidth ),
                           color: UIColor(hexString: roadColor) ?? .green,
                           borderWidth: roadBorderWidth.toFloat(),
 =======
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
         // Apply proper scaling for iOS to match Android behavior
         let scaledWidth = Float(max(roadWidth * 2.0, 1.0)) // Ensure minimum width and scale up
         let scaledBorderWidth = roadBorderWidth?.toFloat() != nil ? Float(max(roadBorderWidth! * 2.0, 0.0)) : nil
@@ -62,7 +65,10 @@ extension RoadData {
         RoadConfiguration(width: scaledWidth,
                           color: UIColor(hexString: roadColor) ?? .green,
                           borderWidth: scaledBorderWidth,
+<<<<<<< HEAD
 >>>>>>> 765bc1a (Initial commit)
+=======
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
                           borderColor: UIColor(hexString: roadBorderColor),
                           lineCap: LineCapType.ROUND,
                           polylineType: getPolylineType()

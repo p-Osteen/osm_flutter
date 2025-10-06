@@ -20,10 +20,14 @@ Pod::Spec.new do |s|
   s.dependency 'Polyline'
   s.dependency 'Yams'
 <<<<<<< HEAD
+<<<<<<< HEAD
   s.dependency 'OSMFlutterFramework'
 =======
   s.dependency 'OSMFlutterFramework', '~> 0.8.3'
 >>>>>>> 765bc1a (Initial commit)
+=======
+  s.dependency 'OSMFlutterFramework', '~> 0.8.3'
+>>>>>>> 765bc1a75ace6ecde68dfad0499ccca6157e3952
   #s.preserve_paths = 'Frameworks/OSMFlutterFramework.xcframework'
   #s.xcconfig = { 'OTHER_LDFLAGS' => '-framework OSMFlutterFramework' }
   #s.vendored_frameworks = 'OSMFlutterFramework.xcframework'
