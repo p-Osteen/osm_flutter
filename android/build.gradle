@@ -1,0 +1,128 @@
+group 'hamza.dali.flutter_osm_plugin'
+version '1.0'
+
+buildscript {
+    ext.kotlin_version = '1.9.24'
+    repositories {
+        google()
+        
+        // Use multiple Maven repositories with fallbacks
+        maven {
+            url "https://repo1.maven.org/maven2/"
+            allowInsecureProtocol false
+        }
+        
+        mavenCentral()
+        maven { url "https://maven.google.com/" }
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:7.1.3'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        
+        // Use multiple Maven repositories with fallbacks to handle rate limiting
+        maven {
+            url "https://repo1.maven.org/maven2/"
+            allowInsecureProtocol false
+        }
+        
+        mavenCentral()
+        
+        // Add additional mirrors and fallback repositories
+        maven { url "https://maven.google.com/" }
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        
+        // Add gradle plugin portal as fallback
+        gradlePluginPortal()
+    }
+    
+    // Configure retry and timeout for dependency resolution
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk 35
+    namespace "hamza.dali.flutter_osm_plugin"
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+       // disable 'InvalidPackage'
+    }
+    buildFeatures {
+        viewBinding  true
+    }
+    compileOptions {
+        //coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 17
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
+    }
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+    }
+}
+dependencies {
+
+    def coroutines_version ="1.8.1" // Use a more stable version to avoid rate limiting issues
+    def retrofit_version = "2.9.0"   // Use slightly older but stable version
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Retrofit and relevant converters - use more stable versions
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    
+    // Picasso - use more stable version
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Preference
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+
+    // Coroutines - use more stable version
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // OSM dependencies
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
+    implementation 'com.github.MKergall:osmbonuspack:6.9.0'
+    implementation 'com.google.android.material:material:1.12.0'
+
+    // Add explicit OkHttp version to prevent conflicts
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.moshi:moshi:1.15.0'
+
+    //coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.2'
+    //implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
+
+}
+
