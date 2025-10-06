@@ -180,7 +180,11 @@ fun Polyline.setStyle(
 
 }
 
+<<<<<<< HEAD
 fun List<Int>.toRGB(): Int = Color.rgb(first(), last(), this[1])
+=======
+fun List<Int>.toRGB(): Int = Color.rgb(first(), this[1], last())
+>>>>>>> 765bc1a (Initial commit)
 
 fun Road.toMap(
     key: String,

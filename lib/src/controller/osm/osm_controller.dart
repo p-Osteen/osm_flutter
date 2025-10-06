@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+<<<<<<< HEAD
+=======
+import 'package:flutter/foundation.dart';
+>>>>>>> 765bc1a (Initial commit)
 import 'package:flutter_osm_interface/flutter_osm_interface.dart';
 
 import 'package:flutter_osm_plugin/src/widgets/mobile_osm_flutter.dart';
@@ -436,6 +440,7 @@ final class MobileOSMController extends IBaseOSMController {
     IconAnchor? iconAnchor,
   }) async {
     if (markerIcon != null) {
+<<<<<<< HEAD
       _osmFlutterState.widget.dynamicMarkerWidgetNotifier.value = markerIcon;
       //int durationSecond = 500;
       await Future.delayed(duration, () async {
@@ -451,6 +456,47 @@ final class MobileOSMController extends IBaseOSMController {
           globalKeyIcon: _osmFlutterState.dynamicMarkerKey,
           iconAnchor: iconAnchor,
         );
+=======
+      // Check if widget is still mounted before proceeding
+      if (!_osmFlutterState.mounted) {
+        debugPrint("Warning: OSM widget is disposed, cannot add marker");
+        return;
+      }
+      
+      _osmFlutterState.widget.dynamicMarkerWidgetNotifier.value = markerIcon;
+      //int durationSecond = 500;
+      await Future.delayed(duration, () async {
+        // Double check if widget is still mounted after delay
+        if (!_osmFlutterState.mounted) {
+          debugPrint("Warning: OSM widget disposed during marker addition");
+          return;
+        }
+        
+        try {
+          await osmPlatform.addMarker(
+            _idMap,
+            angle != null && angle != 0
+                ? GeoPointWithOrientation(
+                    angle: angle,
+                    latitude: p.latitude,
+                    longitude: p.longitude,
+                  )
+                : p,
+            globalKeyIcon: _osmFlutterState.dynamicMarkerKey,
+            iconAnchor: iconAnchor,
+          );
+        } catch (e) {
+          debugPrint("Error adding marker: $e");
+          // Fallback to adding marker without custom icon
+          if (_osmFlutterState.mounted) {
+            await osmPlatform.addMarker(
+              _idMap,
+              p,
+              iconAnchor: iconAnchor,
+            );
+          }
+        }
+>>>>>>> 765bc1a (Initial commit)
       });
     } else {
       await osmPlatform.addMarker(

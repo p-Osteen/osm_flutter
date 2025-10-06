@@ -183,7 +183,14 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
                 result(200)
                 break;
             case "get#Zoom":
+<<<<<<< HEAD
                 result(self.mapOSM.zoom())
+=======
+                DispatchQueue.main.async {
+                    let zoomLevel = Double(self.mapOSM.zoom())
+                    result(zoomLevel)
+                }
+>>>>>>> 765bc1a (Initial commit)
                 break;
             case "change#stepZoom":
                 
@@ -357,6 +364,7 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
     }*/
     func initPosition(args: Any?, result: @escaping FlutterResult){
         let pointInit = args as! Dictionary<String, Double>
+<<<<<<< HEAD
         //print(pointInit)
         //let initZoom =
         let location = CLLocationCoordinate2D(latitude: pointInit["lat"]!, longitude: pointInit["lon"]!)
@@ -364,6 +372,17 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
         self.channel.invokeMethod("map#init", arguments: true)
         result(200)
         
+=======
+        let location = CLLocationCoordinate2D(latitude: pointInit["lat"]!, longitude: pointInit["lon"]!)
+        self.mapOSM.moveTo(location: location, zoom: zoomConfig.initZoom, animated: false)
+        
+        // Add delay to ensure map is fully rendered before signaling ready
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.channel.invokeMethod("map#init", arguments: true)
+        }
+        
+        result(200)
+>>>>>>> 765bc1a (Initial commit)
     }
      func moveToSpecificLocation(call: FlutterMethodCall, result: FlutterResult) {
          let args = call.arguments as! [String:Any]
@@ -458,8 +477,33 @@ class MapCoreOSMView : NSObject, FlutterPlatformView, CLLocationManagerDelegate,
         self.mapOSM.markerManager.removeMarkers(locations: geoPoints)
     }
     func deleteMarker(call:FlutterMethodCall){
+<<<<<<< HEAD
         let location = (call.arguments as! GeoPoint).toLocationCoordinate()
         self.mapOSM.markerManager.removeMarker(location: location)
+=======
+        guard let geoPointDict = call.arguments as? GeoPoint else {
+            print("Invalid arguments for deleteMarker")
+            return
+        }
+        
+        guard let lat = geoPointDict["lat"] as? Double,
+              let lon = geoPointDict["lon"] as? Double else {
+            print("Invalid coordinates for deleteMarker")
+            return
+        }
+        
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        
+        // Ensure we're on the main thread and map is ready
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.mapInitialized else {
+                print("Map not initialized for deleteMarker")
+                return
+            }
+            
+            self.mapOSM.markerManager?.removeMarker(location: location)
+        }
+>>>>>>> 765bc1a (Initial commit)
     }
     func changePosition(args: Any?, result: @escaping FlutterResult){
         result(200)
@@ -852,6 +896,65 @@ extension MapCoreOSMView {
     }
 
 }
+<<<<<<< HEAD
+=======
+
+// MARK: - Protocol Implementations
+extension MapCoreOSMView {
+    
+    // MapMarkerHandler protocol methods
+    func onSingleTapMarker(marker: OSMFlutterFramework.Marker) {
+        let geoPoint = ["lat": marker.location.latitude, "lon": marker.location.longitude]
+        self.channel.invokeMethod("marker#tap", arguments: geoPoint)
+    }
+    
+    func onLongClickMarker(marker: OSMFlutterFramework.Marker) {
+        let geoPoint = ["lat": marker.location.latitude, "lon": marker.location.longitude]
+        self.channel.invokeMethod("marker#longTap", arguments: geoPoint)
+    }
+    
+    // OnMapGesture protocol methods
+    func onSingleTap(position: CLLocationCoordinate2D) {
+        let geoPoint = ["lat": position.latitude, "lon": position.longitude]
+        self.channel.invokeMethod("map#tap", arguments: geoPoint)
+    }
+    
+    func onLongClick(position: CLLocationCoordinate2D) {
+        let geoPoint = ["lat": position.latitude, "lon": position.longitude]
+        self.channel.invokeMethod("map#longTap", arguments: geoPoint)
+    }
+    
+    // OnMapMoved protocol methods
+    func mapMoved(position: CLLocationCoordinate2D) {
+        let geoPoint = ["lat": position.latitude, "lon": position.longitude]
+        self.channel.invokeMethod("map#moved", arguments: geoPoint)
+    }
+    
+    // OSMUserLocationHandler protocol methods
+    func onUserLocationReceived(location: CLLocationCoordinate2D) {
+        latestUserLocation = location
+        let geoPoint = ["lat": location.latitude, "lon": location.longitude]
+        self.channel.invokeMethod("user#position", arguments: geoPoint)
+        if let result = resultFlutter {
+            result(geoPoint)
+            resultFlutter = nil
+        }
+    }
+    
+    func onUserLocationError(error: Error) {
+        if let result = resultFlutter {
+            result(FlutterError(code: "LOCATION_ERROR", message: error.localizedDescription, details: nil))
+            resultFlutter = nil
+        }
+    }
+    
+    // PoylineHandler protocol methods (note: this might be PolylineHandler in newer versions)
+    func onRoadTapped(roadKey: String) {
+        self.channel.invokeMethod("road#tap", arguments: roadKey)
+    }
+}
+
+>>>>>>> 765bc1a (Initial commit)
 class MapViewUIView:UIView{
     public override init(frame:CGRect){
         super.init(frame: frame)

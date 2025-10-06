@@ -5,8 +5,23 @@ buildscript {
     ext.kotlin_version = '1.9.24'
     repositories {
         google()
+<<<<<<< HEAD
         mavenCentral()
         maven { url "https://jitpack.io" }
+=======
+        
+        // Use multiple Maven repositories with fallbacks
+        maven {
+            url "https://repo1.maven.org/maven2/"
+            allowInsecureProtocol false
+        }
+        
+        mavenCentral()
+        maven { url "https://maven.google.com/" }
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        gradlePluginPortal()
+>>>>>>> 765bc1a (Initial commit)
     }
 
     dependencies {
@@ -18,8 +33,33 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
+<<<<<<< HEAD
         mavenCentral()
         maven { url "https://jitpack.io" }
+=======
+        
+        // Use multiple Maven repositories with fallbacks to handle rate limiting
+        maven {
+            url "https://repo1.maven.org/maven2/"
+            allowInsecureProtocol false
+        }
+        
+        mavenCentral()
+        
+        // Add additional mirrors and fallback repositories
+        maven { url "https://maven.google.com/" }
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://jitpack.io" }
+        
+        // Add gradle plugin portal as fallback
+        gradlePluginPortal()
+    }
+    
+    // Configure retry and timeout for dependency resolution
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+>>>>>>> 765bc1a (Initial commit)
     }
 }
 
@@ -64,6 +104,7 @@ android {
 }
 dependencies {
 
+<<<<<<< HEAD
     def coroutines_version ="1.10.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -84,12 +125,41 @@ dependencies {
     //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
+=======
+    def coroutines_version ="1.8.1" // Use a more stable version to avoid rate limiting issues
+    def retrofit_version = "2.9.0"   // Use slightly older but stable version
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Retrofit and relevant converters - use more stable versions
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    
+    // Picasso - use more stable version
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Preference
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+
+    // Coroutines - use more stable version
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // OSM dependencies
+>>>>>>> 765bc1a (Initial commit)
     implementation 'org.osmdroid:osmdroid-android:6.1.20'
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
     implementation 'com.google.android.material:material:1.12.0'
 
+<<<<<<< HEAD
     //coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.2'
 
+=======
+    // Add explicit OkHttp version to prevent conflicts
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.moshi:moshi:1.15.0'
+
+    //coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.2'
+>>>>>>> 765bc1a (Initial commit)
     //implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
 
 }

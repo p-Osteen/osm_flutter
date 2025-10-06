@@ -8,7 +8,11 @@ import 'types/types.dart';
 abstract class OSMPlatform extends PlatformInterface {
   OSMPlatform() : super(token: token);
 
+<<<<<<< HEAD
   static late OSMPlatform _instance = MethodChannelOSM();
+=======
+  static OSMPlatform _instance = MethodChannelOSM();
+>>>>>>> 765bc1a (Initial commit)
 
   static OSMPlatform get instance => _instance;
 

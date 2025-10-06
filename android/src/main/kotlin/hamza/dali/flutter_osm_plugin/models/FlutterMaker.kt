@@ -13,9 +13,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.graphics.drawable.toDrawable
+<<<<<<< HEAD
 import com.squareup.picasso3.BitmapTarget
 import com.squareup.picasso3.Callback
 import com.squareup.picasso3.Picasso
+=======
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+>>>>>>> 765bc1a (Initial commit)
 import hamza.dali.flutter_osm_plugin.R
 import hamza.dali.flutter_osm_plugin.utilities.scaleDensity
 import kotlinx.coroutines.CoroutineScope
@@ -123,6 +129,7 @@ open class FlutterMarker(private var mapView: MapView,private var scope: Corouti
     }
 
     fun setIconMarkerFromURL(imageURL: String, angle: Double = 0.0) {
+<<<<<<< HEAD
         Picasso.Builder(context).build()
             .load(imageURL)
             .fetch(object : Callback {
@@ -139,6 +146,24 @@ open class FlutterMarker(private var mapView: MapView,private var scope: Corouti
                             }
 
                             override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
+=======
+        Picasso.get()
+            .load(imageURL)
+            .fetch(object : Callback {
+                override fun onError(e: Exception?) {
+                    Log.e("error image", e?.stackTraceToString() ?: "Unknown error")
+                }
+                override fun onSuccess() {
+                    Picasso.get()
+                        .load(imageURL)
+                        .into(object : Target {
+
+                            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                                setIconMaker(bitmap = null, angle = angle)
+                            }
+
+                            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+>>>>>>> 765bc1a (Initial commit)
                                 setIconMaker(bitmap = bitmap, angle = angle)
                             }
 
